@@ -1,0 +1,165 @@
+.container {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-bar ul {
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+}
+
+.nav-bar a {
+    color: whitesmoke;
+}
+
+.nav-bar a:link,
+a:visited {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.nav-bar .active {
+    background-color: white;
+    color: black !important
+}
+
+.large {
+    display: none;
+}
+
+.small {
+    display: block;
+}
+
+.medium {
+    display: none;
+}
+
+body {
+    color: rgb(15, 153, 50);
+    font-size: 16px;
+}
+
+.nav-bar ul li {
+    margin: 10px;
+    list-style-type: none;
+}
+
+@media screen and (min-width:1001px) {
+    .container {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .large {
+        display: block;
+    }
+
+    .small {
+        display: none;
+    }
+
+    .medium {
+        display: none;
+    }
+}
+
+@media screen and (min-width:768px) {
+    body {
+        font-size: 18px;
+    }
+
+    .nav-bar {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .nav-bar ul {
+        display: flex;
+        flex-direction: row;
+        background-color: blue;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:1000px) {
+    .container {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .large {
+        display: none;
+    }
+
+    .small {
+        display: none;
+    }
+
+    .medium {
+        display: block;
+    }
+}
+
+table {
+    /*Tags*/
+    color: red;
+}
+
+.highlight {
+    /*Class*/
+    font-family: 'Courier New', monospace;
+    font-size: larger;
+    color: black;
+}
+
+.card {
+    border: 1px solid #5a0886;
+    padding: 11px;
+    background-color: aquamarine;
+    color: black;
+    width: 20%;
+}
+
+.card input {
+    width: 100%;
+}
+
+.card button {
+    background-color: red;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-width: 2px;
+    border-color: rgb(72, 5, 36);
+}
+
+.grid-container {
+    display: grid;
+    /* grid-template-columns: repeat(3,1fr); */
+    /*auto 1fr 100px;*/
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-gap: 20px;
+    background-color: rgb(11, 173, 210);
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.grid-element {
+    background-color: rgb(37, 90, 205);
+    border: 1px solid rgb(2, 33, 99);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    color: whitesmoke;
+}
+
+.grid-element-2 {
+    grid-column: 1/span 2;
+    grid-row: 1;
+}
