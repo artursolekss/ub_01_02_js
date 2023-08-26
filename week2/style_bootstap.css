@@ -1,0 +1,11 @@
+.navbar-dark .navbar-brand {
+    color: yellow;
+}
+
+.navbar-dark .navbar-nav .active>.nav-link {
+    color: yellow;
+}
+
+.card-small {
+    width: 18rem;
+}
