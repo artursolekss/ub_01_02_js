@@ -8,7 +8,7 @@
 // let result;
 
 // // if ((value1.toLowerCase() == value2.toLowerCase()) == true)///A == true -->A
-// if (value1.toLowerCase() == value2.toLowerCase()) 
+// if (value1.toLowerCase() == value2.toLowerCase())
 // // { --not mandatory to use braces if there one line of code only
 //     ///line1
 //     ///line2
@@ -19,7 +19,7 @@
 //     result = "Inputs are different";
 // }
 
-// if (value1.toLowerCase() == value2.toLowerCase()) 
+// if (value1.toLowerCase() == value2.toLowerCase())
 // // { --not mandatory to use braces if there one line of code only
 //     ///line1
 //     ///line2
@@ -30,7 +30,7 @@
 //     result = "Inputs are different";
 // }
 
-// if (value1.toLowerCase() == value2.toLowerCase()) 
+// if (value1.toLowerCase() == value2.toLowerCase())
 // // { --not mandatory to use braces if there one line of code only
 //     ///line1
 //     ///line2
@@ -115,22 +115,22 @@
 
 ///if(something && somenthing_else && something_else2){...}
 
-let age = Number(prompt("Enter the age:"));
-let salary = Number(prompt("Enter the salary"));
-let debt = Number(prompt("Enter your debt"));
+// let age = Number(prompt("Enter the age:"));
+// let salary = Number(prompt("Enter the salary"));
+// let debt = Number(prompt("Enter your debt"));
 
-let loan_amount = Number(prompt("Enter the amount of loan you need"));
+// let loan_amount = Number(prompt("Enter the amount of loan you need"));
 
-let max_loan_avail = salary * 20;
+// let max_loan_avail = salary * 20;
 
-// if (!(age > 17 && debt == 0 && loan_amount < max_loan_avail)) {
-if (!(age > 17) || !(debt == 0) || !(
-    loan_amount < max_loan_avail)) {
-    alert("You can't take the loan");
-}
-else {
-    console.log("Loan registered!")
-}
+// // if (!(age > 17 && debt == 0 && loan_amount < max_loan_avail)) {
+// if (!(age > 17) || !(debt == 0) || !(
+//     loan_amount < max_loan_avail)) {
+//     alert("You can't take the loan");
+// }
+// else {
+//     console.log("Loan registered!")
+// }
 
 ///Example
 
@@ -141,5 +141,172 @@ else {
 //     (!isNaN(value1) && !isNaN(value2))
 //     && !(value1 <= value2)) -->
 //     (!(isNaN(value1) || isNaN(value2))
-//     || value1 <= value2)) 
+//     || value1 <= value2))
 
+// let month = prompt("Enter the month as number 1-12:");
+
+// switch (month) {
+//     case '1':
+//         alert("January");
+//         break;
+//     case '2':
+//         alert("February");
+//         break;
+//     case '3':
+//         alert("March");
+//         break;
+//     case '4':
+//         alert("April");
+//         break;
+//     case '5':
+//         alert("May");
+//         break;
+//     case '6':
+//         alert("June");
+//         break;
+//     case '7':
+//         alert("July");
+//         break;
+//     case '8':
+//         alert("August");
+//         break;
+//     case '9':
+//         alert("September");
+//         break;
+//     case '10':
+//         alert("October");
+//         break;
+//     case '11':
+//         alert("November");
+//         break;
+//     case '12':
+//         alert("December");
+//         break;
+//     default:
+//         alert("Such month does not exist!");
+// }
+
+
+
+// switch (month) {
+//     case '1':
+//     case '2':
+//     case '12':
+//         alert("Winter")
+//         break;
+//     case '3':
+//     case '4':
+//     case '5':
+//         alert("Spring");
+//         break;
+//     case '6':
+//     case '7':
+//     case '8':
+//         alert("Summer");
+//         break;
+//     case '9':
+//     case '10':
+//     case '11':
+//         alert("Fall");
+//         break;
+//     default:
+//         alert("Such month does not exist!");
+// }
+
+// for (let i = 0; i < 5; i++) {
+//     console.log(i);
+// }
+
+// for (let i = 0; i > 5; i++) {///Won't be executed
+//     console.log(i);
+// }
+
+// for (let i = 0; i > -1; i++) {///Infinite loop
+//     console.log(i);
+// }
+
+// let i = Number(prompt("Enter the number"))
+// for (; i < 10; i++) {///i declaration is not needed, because it is already defined above
+//     console.log(i);
+// }
+
+// for (;; i++) {///Infinite loop
+//     console.log(i);
+// }
+
+// for(;;){//infinite loop
+
+// }
+
+// for(;true;){//infinite loop
+
+// }
+
+// let no_times = Number(prompt("Enter the number"))
+// let i = 0;
+// for (; ;) {//infinite loop
+//     if (i++ < no_times) {
+//         alert("Hello");
+//         // i++;
+//     }
+//     else
+//         break;//Jumps out of the loop
+// }
+
+// let max_number = Number(prompt("Enter the max number"));
+
+// for (let i = 0; i <= max_number; i++) {//Prints even numbers only
+//     if (i % 2 != 0) {
+//         continue;//goes to the next iteration
+//     }
+//     console.log(i);
+// }
+
+// let max_number = Number(prompt("Enter the max number"));
+
+// for (let i = 0; i <= max_number; i +=2) {//Prints even numbers only
+//     console.log(i);
+// }
+
+// let i = 1;
+// for (; ;) {
+//     alert(i++)
+//     let answer = prompt("Enter stop if you don't want to continue");
+//     if (answer == "stop")
+//         break;
+// }
+
+///Same above but using while
+
+// let i = 1;
+// let answer;
+
+// while (answer !== "stop") {
+//     alert(i++)
+//     answer = prompt("Enter stop if you don't want to continue");
+// }
+
+// let i = 0;
+
+// while (i < 10) {
+//     alert(i++)
+// }
+
+//same as
+
+// for(let i=0;i<10;i++){
+//     alert(i);
+// }
+
+// while (true) {
+//     alert("Hello");
+//     if (prompt("Enter stop to finish") == "stop")
+//         break;
+// }
+
+let answer;
+do {
+    alert("Hello");
+    answer = prompt("Enter stop to finish") == "stop" ? false : true;
+}
+while (answer);
