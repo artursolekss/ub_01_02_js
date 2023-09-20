@@ -5,20 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Table</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript" src="table.js"></script>
 </head>
 
 <body>
+    <div>
+        <input onkeyup="onSearchByName()" id="search_name"/>
+        <a id="id_found"></a>
+    </div>
+    
     <table border="1" id="myTable">
         <thead>
             <tr>
-                <th>
+                <th id="id_field">
                     ID
                 </th>
-                <th>
+                <input type="number" hidden id="current_id" value="1" />
+                <th id="name_field">
                     Name
                 </th>
-                <th>
+                <th id="last_name">
                     Last Name
                 </th>
             </tr>
