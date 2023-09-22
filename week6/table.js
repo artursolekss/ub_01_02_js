@@ -95,3 +95,32 @@ function onSearchByName() {
     id_found_element.innerText = id;
 }
 
+
+function myHandler(e) {
+    // event handling  
+    // e.stopPropogation();
+    // alert("Clicked")
+    switch(e.target.id){
+        case "id_field":
+            alert("You clicked on ID field");
+            break;
+        case "name_field":
+            alert("You clicked on the First Name field");
+            break;
+        case "last_name":
+            alert("You clicked on the Last Name field");
+            break;
+        default:
+            alert("Something else is pressed");
+            
+    }
+}
+
+function onInit() {
+    const table_element = document.getElementById("myTable");
+    // table_element.onclick = () => {
+    //     alert("on table click");
+    // }
+    table_element.addEventListener("click", myHandler, true);
+}
+
