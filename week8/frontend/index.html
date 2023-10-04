@@ -11,8 +11,27 @@
 </head>
 
 <body>
-    <input id="file_name" type="text"><button id="getbutton">Get file content</button>
-    <div id="content"></div>
+    <!-- <input id="file_name" type="text"><button id="getbutton">Get file content</button>
+    <div id="content"></div> -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+            </tr>
+        </thead>
+        <tbody id="personstable_body">
+        </tbody>
+    </table>
+    <label for="firstname">First Name:</label>
+    <input id="firstname" type="text">
+    <label for="lastname">Last Name:</label>
+    <input id="lastname" type="text">
+    <button id="save">Save</button>
 </body>
 
 </html>

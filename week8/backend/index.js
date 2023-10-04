@@ -21,6 +21,41 @@ app.get("/file", (req, res) => {
     });
 })
 
+app.post("/add-person", (req, res) => {
+    const person = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname
+    }
+    fs.readFile("persons.json", (err, data) => {
+        if (err) {
+            res.send({ status: 500, "error": err, "response": "Error" });
+        }
+        else {
+            const persons = JSON.parse(data);
+            persons.push(person);
+            fs.writeFile("persons.json", JSON.stringify(persons), err => {
+                if (err) {
+                    res.send({ status: 500, "error": err, "response": "Error" });
+                }
+                else {
+                    res.send({ status: 200, "error": null, "response": "Person added!" });
+                }
+            });
+        }
+    });
+})
+
+app.get("/get-all-persons", (req, res) => {
+    fs.readFile("persons.json", "utf8", (err, data) => {
+        if (err) {
+            res.send({ status: 500, "error": err, "response": "Error" });
+        }
+        else {
+            res.send({ status: 200, "error": null, "response": data });
+        }
+    });
+});
+
 app.listen(3000, () => {
     console.log("Server listening on port 3000");
 });
