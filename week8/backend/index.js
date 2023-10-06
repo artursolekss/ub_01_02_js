@@ -1,9 +1,11 @@
 // const http = require("http");
-const fs = require("fs");
+const fs = require("fs").promises;
+const axios = require('axios');
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
+require('dotenv').config()
 app.use(cors());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -45,16 +47,67 @@ app.post("/add-person", (req, res) => {
     });
 })
 
-app.get("/get-all-persons", (req, res) => {
-    fs.readFile("persons.json", "utf8", (err, data) => {
-        if (err) {
-            res.send({ status: 500, "error": err, "response": "Error" });
-        }
-        else {
-            res.send({ status: 200, "error": null, "response": data });
-        }
-    });
+app.get("/get-all-persons", async (req, res) => {
+    // fs.readFile("persons.json", "utf8", (err, data) => {
+    //     if (err) {
+    //         res.send({ status: 500, "error": err, "response": "Error" });
+    //     }
+    //     else {
+    //         res.send({ status: 200, "error": null, "response": data });
+    //     }
+    // });
+    try {
+        const data = await readFile("persons.json");
+        res.send({ status: 200, "error": null, "response": data });
+        // throw Error; if throw is called, it goes to the closest catch
+    }
+    catch (error) {
+        res.send({ status: 500, "error": error, "response": "Error" });
+        console.log(error.stack);
+    }
 });
+
+async function readFile(filepath) {
+
+    const data = await fs.readFile(filepath, "utf8");
+    return data;
+}
+
+
+app.get("/get-html-template", async (req, res) => {
+    try {
+        const templ_head = await readFile("bootstraptemplhead.html");
+        const templ_body = await readFile("bootstraptemplbody.html");
+        res.send({ status: 200, "error": null, "response": { head: templ_head, body: templ_body } });
+
+    }
+    catch (error) {
+        res.send({ status: 500, "error": error, "response": "Error" });
+        console.log(error.stack);
+    }
+})
+
+app.get("/get-weather-forecast", async (req, res) => {
+    const options = {
+        method: 'GET',
+        url: 'https://weatherapi-com.p.rapidapi.com/forecast.json',
+        params: {
+            q: req.query.city,
+            days: '3'
+        },
+        headers: {
+            'X-RapidAPI-Key': process.env.WEATHER_API_KEY,
+            'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+        }
+    };
+
+    try {
+        const response = await axios.request(options);
+        res.send({ status: 200, "error": null, "response": response });
+    } catch (error) {
+        res.send({ status: 500, "error": error, "response": "Error" });
+    }
+})
 
 app.listen(3000, () => {
     console.log("Server listening on port 3000");
