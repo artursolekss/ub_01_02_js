@@ -100,11 +100,28 @@ app.get("/get-weather-forecast", async (req, res) => {
             'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
         }
     };
-
     try {
-        const response = await axios.request(options);
-        res.send({ status: 200, "error": null, "response": response });
+        const response_full = await axios.request(options);
+
+        const response = response_full.data;
+        const response_form = {};
+        const current = response.current;
+        const current_temp = current.temp_c;
+        response_form.current_temp = { temp: current_temp, icon: current.condition.icon };
+        const forecast_days = [];
+        for (let i = 0; i < response.forecast.forecastday.length; i++) {
+            let day = response.forecast.forecastday[i];
+            forecast_days.push({
+                date: day.date,
+                avg_temp: day.day.avgtemp_c,
+                icon: day.day.condition.icon
+            })
+        }
+        response_form.forecast = forecast_days;
+        res.send({ status: 200, "error": null, "response": response_form });
+        // console.log(response.data);
     } catch (error) {
+        console.log(error);
         res.send({ status: 500, "error": error, "response": "Error" });
     }
 })
