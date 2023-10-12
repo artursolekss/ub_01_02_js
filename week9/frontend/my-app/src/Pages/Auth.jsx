@@ -5,6 +5,7 @@ export function AuthPage() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [wrongUser, setWrongUser] = useState(false);
 
     const onUserNameChange = (event) => {
         setUsername(event.target.value);
@@ -17,7 +18,7 @@ export function AuthPage() {
     const onSubmit = () => {
         // window.location.reload();
         const headers = new Headers();
-        headers.append("Content-type", "application/json")
+        headers.append("Content-Type", "application/json")
         fetch("http://127.0.0.1:3800/validate-user", {
             method: "POST",
             headers: headers,
@@ -25,7 +26,13 @@ export function AuthPage() {
 
         }).then((response) => {
             response.json().then((body) => {
-                console.log(body);
+                if (body.user_exists) {
+                    sessionStorage.setItem("user", username);
+                    window.location.reload();
+                }
+                else {
+                    setWrongUser(true);
+                }
             });
         })
     }
@@ -51,6 +58,10 @@ export function AuthPage() {
                     type="button" onClick={onSubmit}>
                     Login
                 </button>
+                {wrongUser &&
+                    <div className="alert alert-danger" role="alert">
+                        Wrong credentials provided!
+                    </div>}
             </Form>
         </Container>
     )

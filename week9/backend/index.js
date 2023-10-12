@@ -1,16 +1,15 @@
 // const http = require("http");
-const fs = require("fs").promises;
+const fs = require("fs");
 const axios = require('axios');
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const express = require("express");
-const { readFile } = require("fs");
 const app = express();
 require('dotenv').config()
 app.use(cors());
-app.use(bodyParser.urlencoded({
-    extended: true
-}))
+app.use(express.urlencoded());
+
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
 
 app.post("/validate-user", (req, res) => {
     fs.readFile("userlist.json", (err, users_cont) => {
@@ -18,7 +17,7 @@ app.post("/validate-user", (req, res) => {
         const user_name = req.body.user;
         const password = req.body.password;
         if (users.find((user_entry) => user_entry.user == user_name &&
-            user_entry.password == password)) {
+            user_entry.password == password) !== undefined) {
             res.send({ status: 200, "error": null, user_exists: true })
         }
         else {
