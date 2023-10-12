@@ -4,12 +4,28 @@ const axios = require('axios');
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const express = require("express");
+const { readFile } = require("fs");
 const app = express();
 require('dotenv').config()
 app.use(cors());
 app.use(bodyParser.urlencoded({
     extended: true
 }))
+
+app.post("/validate-user", (req, res) => {
+    fs.readFile("userlist.json", (err, users_cont) => {
+        const users = JSON.parse(users_cont);
+        const user_name = req.body.user;
+        const password = req.body.password;
+        if (users.find((user_entry) => user_entry.user == user_name &&
+            user_entry.password == password)) {
+            res.send({ status: 200, "error": null, user_exists: true })
+        }
+        else {
+            res.send({ status: 200, "error": null, user_exists: false })
+        }
+    });
+})
 
 app.get("/get-weather-forecast", async (req, res) => {
     const options = {

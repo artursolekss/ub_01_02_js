@@ -2,11 +2,15 @@ import './App.css';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react';
+import HeadColumn from './Components/HeadColumn';
+import Column from './Components/Column';
+import { AuthPage } from './Pages/Auth';
 
 function App() {
 
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("");
+  const user = sessionStorage.getItem("user");
 
   const onSearch = () => {
     fetch("http://127.0.0.1:3800/get-weather-forecast?city=" + city, {
@@ -25,58 +29,53 @@ function App() {
 
   return (
     <div className="App">
-      <Container>
-        <Form>
-          <input type="search"
-            placeholder="City"
-            aria-label="Search"
-            value={city}
-            onChange={onCityChange}
-          >
-          </input>
-          <button onClick={onSearch} className="btn btn-outline-success"
-            type="button">
-            Search
-          </button>
-        </Form>
-        {weather !== null &&
-          <>
-            <div className="row">
-              <div className="col-sm">
-                Today
+      {user !== null &&
+        <Container>
+          <Form>
+            <input type="search"
+              placeholder="City"
+              aria-label="Search"
+              value={city}
+              onChange={onCityChange}
+            >
+            </input>
+            <button onClick={onSearch} className="btn btn-outline-success"
+              type="button">
+              Search
+            </button>
+          </Form>
+          {weather !== null &&
+            <>
+              <div className="row">
+                <HeadColumn>
+                  Today
+                </HeadColumn>
+                {weather.forecast.map((forecast) => {
+                  return (
+                    <HeadColumn key={forecast.date}>
+                      {forecast.date}
+                    </HeadColumn>)
+                })
+                }
               </div>
-              <div className="col-sm">
-                {weather.forecast[0].date}
+              <div className="row">
+                <Column temp={weather.current_temp.temp} icon={weather.current_temp.icon}>
+                </Column>
+                {weather.forecast.map((forecast) => {
+                  return (
+                    <Column key={forecast.date} temp={forecast.avg_temp} icon={forecast.icon}>
+                    </Column>
+                  )
+                })}
               </div>
-              <div className="col-sm">
-                {weather.forecast[1].date}
-              </div>
-              <div className="col-sm">
-                {weather.forecast[2].date}
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-sm">
-                <img src={"https://" + weather.current_temp.icon} alt="img"></img>
-                {weather.current_temp.temp} °C
-              </div>
-              <div className="col-sm">
-                <img src={"https://" + weather.forecast[0].icon} alt="img0"></img>
-                {weather.forecast[0].avg_temp} °C
-              </div>
-              <div className="col-sm">
-                <img src={"https://" + weather.forecast[1].icon} alt="img1"></img>
-                {weather.forecast[1].avg_temp} °C
-              </div>
-
-              <div className="col-sm">
-                <img src={"https://" + weather.forecast[2].icon} alt="img2"></img>
-                {weather.forecast[2].avg_temp} °C
-              </div>
-            </div>
-          </>
-        }
-      </Container >
+            </>
+          }
+        </Container >
+      }
+      {
+        user === null &&
+        <AuthPage></AuthPage>
+      }
     </div >
   );
 }
