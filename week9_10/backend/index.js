@@ -3,7 +3,7 @@ const fs = require("fs");
 const axios = require('axios');
 const cors = require("cors");
 const express = require("express");
-const mysql = require("mysql")
+require("./database/manage")
 
 const app = express();
 
@@ -16,18 +16,7 @@ app.use(express.json());
 
 
 // Start mysql - 26/10/2023
-const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "ub_01_02_js"
-})
 
-connection.connect((error) => {
-    if (error)
-        throw error;
-    console.log("Connected to the database");
-})
 // End mysql - 26/10/2023
 
 
