@@ -3,7 +3,8 @@ const fs = require("fs");
 const axios = require('axios');
 const cors = require("cors");
 const express = require("express");
-require("./database/manage")
+const pass_manag = require("./utilities/password_manager")
+const db_manage = require("./database/manage")
 
 const app = express();
 
@@ -15,9 +16,42 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 
-// Start mysql - 26/10/2023
+// Start - 26/10/2023
+app.get("/create-user", (req, res) => {
+    const uname = req.query.uname;
+    const password = req.query.pass;
+    pass_manag.cryptPassword(password, (err, hash) => {
+        db_manage.addUser(uname, hash, (error) => {
+            if (error) {
+                res.send({ status: 500, "error": error })
+            }
+            else {
+                res.send({ status: 200, "error": null })
+            }
+        });
+    })
+})
 
-// End mysql - 26/10/2023
+app.get("/validate-user", (req, res) => {
+    const uname = req.query.uname;
+    const password = req.query.pass;
+    db_manage.getUser(uname, (hashpassword) => {
+        pass_manag.comparePassword(password, hashpassword, (error, passmatch) => {
+            if (error) {
+                res.send({ status: 500, "error": error })
+            }
+            else if (passmatch) {
+                res.send({ status: 200, "error": null })
+                console.log("Passowrd match")
+            }
+            else{
+                res.send({ status: 400, "error": null })
+                console.log("Passowrd doesn't match")
+            }
+        })
+    })
+})
+// End - 26/10/2023
 
 
 app.post("/validate-user", (req, res) => {
