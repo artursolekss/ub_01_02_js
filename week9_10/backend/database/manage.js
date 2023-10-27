@@ -39,4 +39,17 @@ function getUser(username, callback) {
     })
 }
 
-module.exports = { addUser, getUser }
+function getTableValues(tablename, callback) {
+    const sqlQuery = "SELECT * FROM " + tablename;
+    connection.query(sqlQuery, [], (error, results) => {
+        if (error) {
+            callback(error);
+        }
+        else {
+            callback(null, results);
+        }
+
+    })
+}
+
+module.exports = { addUser, getUser, getTableValues }

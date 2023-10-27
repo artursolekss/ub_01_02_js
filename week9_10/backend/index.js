@@ -3,8 +3,9 @@ const fs = require("fs");
 const axios = require('axios');
 const cors = require("cors");
 const express = require("express");
-const pass_manag = require("./utilities/password_manager")
-const db_manage = require("./database/manage")
+const pass_manag = require("./utilities/password_manager");
+const db_manage = require("./database/manage");
+const customers_controller = require("./Controllers/customers_controller");
 
 const app = express();
 
@@ -28,7 +29,8 @@ app.post("/create-user", (req, res) => {
 
         db_manage.addUser(uname, hash, (error) => {
             if (error) {
-                res.send({ status: 500, "error": error });
+                if (error.code === 'ER_DUP_ENTRY')
+                    res.send({ status: 500, "error": "The user already exists" });
             }
             else {
                 res.send({ status: 200, "error": null });
@@ -113,6 +115,17 @@ app.get("/get-weather-forecast", async (req, res) => {
         console.log(error);
         res.send({ status: 500, "error": error, "response": "Error" });
     }
+})
+
+app.get("/all-customers", (req, res) => {
+    customers_controller.getCustomers(db_manage, (err, results) => {
+        if (err) {
+            res.send({ status: 500, "error": err, "response": "Error" });
+        }
+        else {
+            res.send({ status: 200, "error": null, "response": JSON.stringify(results) });
+        }
+    })
 })
 
 app.listen(3800, () => {

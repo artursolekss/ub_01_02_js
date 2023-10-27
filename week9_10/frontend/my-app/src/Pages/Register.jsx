@@ -20,11 +20,16 @@ export function Register() {
     }
 
     const onSubmit = () => {
-        // window.location.reload();
         if (password !== passwordRep) {
             window.alert("Passwords do not match");
             return;
         }
+
+        if (password === "") {
+            window.alert("Password can't be empty");
+            return;
+        }
+        
         const headers = new Headers();
         headers.append("Content-Type", "application/json")
         fetch("http://127.0.0.1:3800/create-user", {
