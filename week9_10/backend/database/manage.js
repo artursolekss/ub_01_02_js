@@ -28,13 +28,15 @@ function addUser(username, hash, callback) {
 function getUser(username, callback) {
     const sqlQuery = "SELECT * FROM users WHERE username = ?";
     connection.query(sqlQuery, [username], (error, results) => {
-        let userExist = false;
-        // if (results[0] !== undefined) {
-        const passhash = results[0].password;
-        callback(passhash);
-        // }
+        if (results[0] !== undefined) {
+            const passhash = results[0].password;
+            callback(passhash);
+        }
+        else {
+            callback(null)
+        }
 
     })
 }
 
-module.exports = { addUser,getUser }
+module.exports = { addUser, getUser }

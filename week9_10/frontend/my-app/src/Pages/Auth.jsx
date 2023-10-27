@@ -5,7 +5,7 @@ export function AuthPage() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [wrongUser, setWrongUser] = useState(false);
+    const [wrongUser, setWrongUser] = useState("");
 
     const onUserNameChange = (event) => {
         setUsername(event.target.value);
@@ -26,12 +26,12 @@ export function AuthPage() {
 
         }).then((response) => {
             response.json().then((body) => {
-                if (body.user_exists) {
+                if (body.error === null) {
                     sessionStorage.setItem("user", username);
                     window.location.reload();
                 }
                 else {
-                    setWrongUser(true);
+                    setWrongUser(body.error);
                 }
             });
         })
@@ -60,7 +60,7 @@ export function AuthPage() {
                 </button>
                 {wrongUser &&
                     <div className="alert alert-danger" role="alert">
-                        Wrong credentials provided!
+                        {wrongUser}
                     </div>}
             </Form>
         </Container>

@@ -1,6 +1,7 @@
 import './App.css';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 import { useState } from 'react';
 import HeadColumn from './Components/HeadColumn';
 import Column from './Components/Column';
@@ -31,6 +32,9 @@ function App() {
     <div className="App">
       {user !== null &&
         <Container>
+          <Button>
+            Logout
+          </Button>
           <Form>
             <input type="search"
               placeholder="City"

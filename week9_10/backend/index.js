@@ -32,21 +32,23 @@ app.get("/create-user", (req, res) => {
     })
 })
 
-app.get("/validate-user", (req, res) => {
-    const uname = req.query.uname;
-    const password = req.query.pass;
+app.post("/validate-user", (req, res) => {
+    const uname = req.body.user;
+    const password = req.body.password;
     db_manage.getUser(uname, (hashpassword) => {
+        if (hashpassword === null) {
+            res.send({ status: 400, "error": "User does not exist" })
+            return;
+        }
         pass_manag.comparePassword(password, hashpassword, (error, passmatch) => {
             if (error) {
                 res.send({ status: 500, "error": error })
             }
             else if (passmatch) {
                 res.send({ status: 200, "error": null })
-                console.log("Passowrd match")
             }
-            else{
-                res.send({ status: 400, "error": null })
-                console.log("Passowrd doesn't match")
+            else {
+                res.send({ status: 400, "error": "Password doesn't match" })
             }
         })
     })
