@@ -123,7 +123,7 @@ app.get("/all-customers", (req, res) => {
             res.send({ status: 500, "error": err, "response": "Error" });
         }
         else {
-            res.send({ status: 200, "error": null, "response": JSON.stringify(results) });
+            res.send({ status: 200, "error": null, "response": results });
         }
     })
 })
