@@ -29,11 +29,25 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-form{
+form {
   display: inline-block;
+}
+
+.logout {
+  margin-top: 1px;
+  margin-right: 2px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.head {
+  margin-top: 1px;
+  margin-bottom: 20px;
 }

@@ -11,7 +11,7 @@ function App() {
 
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("");
-  const user = sessionStorage.getItem("user");
+  const [user, setUser] = useState(sessionStorage.getItem("user"));
 
   const onSearch = () => {
     fetch("http://127.0.0.1:3800/get-weather-forecast?city=" + city, {
@@ -28,13 +28,20 @@ function App() {
     setCity(event.target.value);
   }
 
+  const logout = () => {
+    sessionStorage.setItem("user", "")
+    setUser("");
+  }
+
   return (
     <div className="App">
-      {user !== null &&
+      {user !== null && user !== "" &&
         <Container>
-          <Button>
-            Logout
-          </Button>
+          <div className='head'>
+            <Button className='logout' onClick={logout}>
+              Logout
+            </Button>
+          </div>
           <Form>
             <input type="search"
               placeholder="City"
@@ -77,7 +84,7 @@ function App() {
         </Container >
       }
       {
-        user === null &&
+        (user === null || user === "") &&
         <AuthPage></AuthPage>
       }
     </div >

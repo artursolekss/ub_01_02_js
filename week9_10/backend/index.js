@@ -17,16 +17,21 @@ app.use(express.json());
 
 
 // Start - 26/10/2023
-app.get("/create-user", (req, res) => {
-    const uname = req.query.uname;
-    const password = req.query.pass;
+app.post("/create-user", (req, res) => {
+    const uname = req.body.uname;
+    const password = req.body.pass;
     pass_manag.cryptPassword(password, (err, hash) => {
+        if (err) {
+            res.send({ status: 500, "error": err });
+            return;
+        }
+
         db_manage.addUser(uname, hash, (error) => {
             if (error) {
-                res.send({ status: 500, "error": error })
+                res.send({ status: 500, "error": error });
             }
             else {
-                res.send({ status: 200, "error": null })
+                res.send({ status: 200, "error": null });
             }
         });
     })
@@ -56,20 +61,20 @@ app.post("/validate-user", (req, res) => {
 // End - 26/10/2023
 
 
-app.post("/validate-user", (req, res) => {
-    fs.readFile("userlist.json", (err, users_cont) => {
-        const users = JSON.parse(users_cont);
-        const user_name = req.body.user;
-        const password = req.body.password;
-        if (users.find((user_entry) => user_entry.user == user_name &&
-            user_entry.password == password) !== undefined) {
-            res.send({ status: 200, "error": null, user_exists: true })
-        }
-        else {
-            res.send({ status: 200, "error": null, user_exists: false })
-        }
-    });
-})
+// app.post("/validate-user", (req, res) => {
+//     fs.readFile("userlist.json", (err, users_cont) => {
+//         const users = JSON.parse(users_cont);
+//         const user_name = req.body.user;
+//         const password = req.body.password;
+//         if (users.find((user_entry) => user_entry.user == user_name &&
+//             user_entry.password == password) !== undefined) {
+//             res.send({ status: 200, "error": null, user_exists: true })
+//         }
+//         else {
+//             res.send({ status: 200, "error": null, user_exists: false })
+//         }
+//     });
+// })
 
 app.get("/get-weather-forecast", async (req, res) => {
     const options = {
